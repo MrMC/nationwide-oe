@@ -48,6 +48,10 @@ PKG_AUTORECONF="no"
   PKG_DEPENDS="$PKG_DEPENDS simplejson"
   PKG_DEPENDS="$PKG_DEPENDS pycrypto"
 
+if [ "$MEMBERNET_SUPPORT" = yes ]; then
+  PKG_DEPENDS="$PKG_DEPENDS xbmc-nationwide_membernet"
+fi
+
 # various PVR clients
   PKG_DEPENDS="$PKG_DEPENDS xbmc-pvr-addons"
   PKG_DEPENDS="$PKG_DEPENDS xbmc-addon-xvdr"

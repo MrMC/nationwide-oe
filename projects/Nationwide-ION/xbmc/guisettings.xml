@@ -1,0 +1,15 @@
+    <audiooutput>
+        <ac3passthrough>false</ac3passthrough>
+        <audiodevice>ALSA:hdmi:CARD=NVidia,DEV=1</audiodevice>
+        <channels>1</channels>
+        <dtshdpassthrough>false</dtshdpassthrough>
+        <dtspassthrough>false</dtspassthrough>
+        <guisoundmode>0</guisoundmode>
+        <mode>2</mode>
+        <multichannellpcm>false</multichannellpcm>
+        <normalizelevels>true</normalizelevels>
+        <passthroughaac>false</passthroughaac>
+        <passthroughdevice>ALSA:hdmi:CARD=NVidia,DEV=1</passthroughdevice>
+        <stereoupmix>false</stereoupmix>
+        <truehdpassthrough>false</truehdpassthrough>
+    </audiooutput>

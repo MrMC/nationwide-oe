@@ -1,0 +1,58 @@
+#!/bin/sh
+
+################################################################################
+#      This file is part of OpenELEC - http://www.openelec.tv
+#      Copyright (C) 2009-2012 Stephan Raue (stephan@openelec.tv)
+#
+#  This Program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2, or (at your option)
+#  any later version.
+#
+#  This Program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with OpenELEC.tv; see the file COPYING.  If not, write to
+#  the Free Software Foundation, 51 Franklin Street, Suite 500, Boston, MA 02110, USA.
+#  http://www.gnu.org/copyleft/gpl.html
+################################################################################
+
+. config/options $1
+
+if [ -z "$PKG_BUILD" ]; then
+  PKG_BUILD=$BUILD/${PKG_NAME}-${PKG_VERSION}
+  echo "BUILD Fixing empty PKG_BUILD->" $PKG_BUILD
+fi
+
+[ -d $PKG_BUILD ] && rm -rf $PKG_BUILD
+
+DIR_ON_ENTRY=`pwd`
+
+mkdir -p $PKG_BUILD
+  git clone git@github.com:nicholasstokes/addons.nationwide.git $PKG_BUILD
+  cd $PKG_BUILD
+  git checkout -b ${PKG_VERSION} >/dev/null 2>&1
+
+cd $DIR_ON_ENTRY
+cd $PKG_BUILD/service.openelec.settings
+  python -Wi -t -B $ROOT/$TOOLCHAIN/lib/python2.7/compileall.py ./resources/lib/ -f >/dev/null
+  rm -rf `find ./resources/lib/ -name "*.py"`
+  python -Wi -t -B $ROOT/$TOOLCHAIN/lib/python2.7/compileall.py ./oe.py -f >/dev/null
+  rm -rf ./oe.py
+
+cd $DIR_ON_ENTRY
+cd $PKG_BUILD/script.nationwide_helper
+  #python -Wi -t -B $ROOT/$TOOLCHAIN/lib/python2.7/compileall.py ./resources/lib/ -f
+  #rm -rf `find ./resources/lib/ -name "*.py"`
+
+cd $DIR_ON_ENTRY
+cd $PKG_BUILD/script.nationwide_membernet
+  python -Wi -t -B $ROOT/$TOOLCHAIN/lib/python2.7/compileall.py ./resources/lib/ -f >/dev/null
+  rm -rf `find ./resources/lib/ -name "*.py"`
+
+cd $DIR_ON_ENTRY
+cd $PKG_BUILD/skin.nationwide
+  TexturePacker -input ./media -output ./Textures.xbt -dupecheck -use_none >/dev/null
