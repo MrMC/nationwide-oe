@@ -36,6 +36,9 @@ mkdir -p $INSTALL/usr/share/xbmc/addons/script.nationwide_helper
 mkdir -p $INSTALL/usr/share/xbmc/addons/script.nationwide_membernet
   cp -R $PKG_BUILD/script.nationwide_membernet/* $INSTALL/usr/share/xbmc/addons/script.nationwide_membernet
 
+mkdir -p $INSTALL/usr/share/xbmc/addons/webinterface.nationwide_membernet
+  cp -R $PKG_BUILD/webinterface.nationwide_membernet/* $INSTALL/usr/share/xbmc/addons/webinterface.nationwide_membernet
+
 mkdir -p $INSTALL/usr/share/xbmc/addons/skin.nationwide
   cp -R $PKG_BUILD/skin.nationwide/*/ $INSTALL/usr/share/xbmc/addons/skin.nationwide
   cp $PKG_BUILD/skin.nationwide/*.txt $INSTALL/usr/share/xbmc/addons/skin.nationwide 2>/dev/null || :
