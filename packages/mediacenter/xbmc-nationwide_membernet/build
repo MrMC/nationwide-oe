@@ -30,11 +30,13 @@ fi
 [ -d $PKG_BUILD ] && rm -rf $PKG_BUILD
 
 DIR_ON_ENTRY=`pwd`
+PKG_GITURL="git@github.com:nicholasstokes/addons.nationwide.git"
+PKG_GITVERSION="5d6ac473da0e7a412662576841405c9f64458eda"
 
 mkdir -p $PKG_BUILD
-  git clone git@github.com:nicholasstokes/addons.nationwide.git $PKG_BUILD
+  git clone $PKG_GITURL $PKG_BUILD
   cd $PKG_BUILD
-  git checkout -b ${PKG_VERSION} >/dev/null 2>&1
+  git checkout -b $PKG_GITVERSION >/dev/null 2>&1
 
 cd $DIR_ON_ENTRY
 cd $PKG_BUILD/service.openelec.settings

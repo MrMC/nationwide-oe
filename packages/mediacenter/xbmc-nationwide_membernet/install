@@ -47,3 +47,5 @@ mkdir -p $INSTALL/usr/share/xbmc/addons/skin.nationwide
   rm -rf $INSTALL/usr/share/xbmc/addons/skin.nationwide/media
   mkdir -p $INSTALL/usr/share/xbmc/addons/skin.nationwide/media
   cp $PKG_BUILD/skin.nationwide/Textures.xbt $INSTALL/usr/share/xbmc/addons/skin.nationwide/media
+
+echo "$PKG_VERSION" > $INSTALL/etc/version.nationwide_membernet
