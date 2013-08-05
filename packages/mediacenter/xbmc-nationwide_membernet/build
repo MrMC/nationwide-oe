@@ -31,12 +31,12 @@ fi
 
 DIR_ON_ENTRY=`pwd`
 PKG_GITURL="git@github.com:nicholasstokes/addons.nationwide.git"
-PKG_GITVERSION="5d6ac473da0e7a412662576841405c9f64458eda"
+PKG_GITVERSION="0ff951e1c08a2837dd6915dd320c02c961869106"
 
 mkdir -p $PKG_BUILD
-  git clone $PKG_GITURL $PKG_BUILD
+  git clone $PKG_GITURL $PKG_BUILD >/dev/null
   cd $PKG_BUILD
-  git checkout -b $PKG_GITVERSION >/dev/null 2>&1
+  git checkout -b $PKG_GITVERSION >/dev/null
 
 cd $DIR_ON_ENTRY
 cd $PKG_BUILD/service.openelec.settings
