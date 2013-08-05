@@ -48,4 +48,6 @@ mkdir -p $INSTALL/usr/share/xbmc/addons/skin.nationwide
   mkdir -p $INSTALL/usr/share/xbmc/addons/skin.nationwide/media
   cp $PKG_BUILD/skin.nationwide/Textures.xbt $INSTALL/usr/share/xbmc/addons/skin.nationwide/media
 
-echo "$PKG_VERSION" > $INSTALL/etc/version.nationwide_membernet
+mkdir -p $INSTALL/usr/config
+  cp -f $PROJECT_DIR/$PROJECT/config/* $INSTALL/usr/config/ 2>/dev/null || :
+  echo "$PKG_VERSION" > $INSTALL/etc/version.nationwide_membernet
