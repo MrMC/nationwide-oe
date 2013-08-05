@@ -1,3 +1,13 @@
+    <locale>
+        <country>USA (12h)</country>
+        <language>English</language>
+        <timezone>America/New_York</timezone>
+        <timezonecountry>United States</timezonecountry>
+    </locale>
+    <lookandfeel>
+        <enablerssfeeds>false</enablerssfeeds>
+        <skin>skin.nationwide</skin>
+    </lookandfeel>
     <audiooutput>
         <ac3passthrough>false</ac3passthrough>
         <audiodevice>ALSA:hdmi:CARD=NVidia,DEV=1</audiodevice>
