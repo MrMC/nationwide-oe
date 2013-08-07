@@ -31,7 +31,7 @@ fi
 
 DIR_ON_ENTRY=`pwd`
 PKG_GITURL="git@github.com:nicholasstokes/addons.nationwide.git"
-PKG_GITVERSION="db978ade44ca3a6dc382cfbe27b3c32479cb41a8"
+PKG_GITVERSION="117a2d0fbf30aae6611fbfe6c0b43cca536951a7"
 
 mkdir -p $PKG_BUILD
   git clone $PKG_GITURL $PKG_BUILD >/dev/null
