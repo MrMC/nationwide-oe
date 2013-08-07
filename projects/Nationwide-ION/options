@@ -218,7 +218,7 @@
   SAMBA_SERVER="no"
 
 # build and install SFTP Server (yes / no)
-  SFTP_SERVER="no"
+  SFTP_SERVER="yes"
 
 # build and install PPP support (yes / no)
   PPTP_SUPPORT="no"
