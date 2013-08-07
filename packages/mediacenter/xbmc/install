@@ -78,10 +78,10 @@ mkdir -p $INSTALL/usr/share/xbmc/media
   rm -rf $INSTALL/usr/share/xbmc/addons/script.module.simplejson
 
 mkdir -p $INSTALL/usr/share/xbmc/addons
-  cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/xbmc/addons
-  $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.tv/addon.xml
-  cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/xbmc/addons
-  $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/xbmc/addons/repository.openelec.tv/addon.xml
+#  cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/xbmc/addons
+#  $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.tv/addon.xml
+#  cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/xbmc/addons
+#  $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/xbmc/addons/repository.openelec.tv/addon.xml
 
 mkdir -p $PYTHON_LIBDIR/site-packages/xbmc
   cp -R $PKG_BUILD/tools/EventClients/lib/python/* $PYTHON_LIBDIR/site-packages/xbmc
