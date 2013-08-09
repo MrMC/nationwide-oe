@@ -1,0 +1,55 @@
+--- a/xbmc/linux/XFileUtils.cpp	2013-08-09 08:40:27.281843413 -0400
++++ b/xbmc/linux/XFileUtils.cpp	2013-08-09 08:45:49.431843375 -0400
+@@ -330,6 +330,10 @@ BOOL DeleteFile(LPCTSTR lpFileName)
+   {
+     CStdString strLower(lpFileName);
+     strLower.MakeLower();
++    // string is already lowercase, just return
++    if (lpFileName == strLower)
++      return 1;
++
+     CLog::Log(LOGERROR,"%s - cant delete file <%s>. trying lower case <%s>", __FUNCTION__, lpFileName, strLower.c_str());
+     if (unlink(strLower.c_str()) == 0)
+     {
+@@ -367,6 +371,10 @@ BOOL MoveFile(LPCTSTR lpExistingFileName
+   {
+     CStdString strLower(lpExistingFileName);
+     strLower.MakeLower();
++    // string is already lowercase, just return
++    if (lpExistingFileName == strLower)
++      return 1;
++
+     CLog::Log(LOGERROR,"%s - cant move file <%s>. trying lower case <%s>", __FUNCTION__, lpExistingFileName, strLower.c_str());
+     if (rename(strLower.c_str(), lpNewFileName) == 0) {
+       CLog::Log(LOGDEBUG,"%s - successfuly moved file <%s>", __FUNCTION__, strLower.c_str());
+@@ -524,10 +532,13 @@ BOOL   CreateDirectory(LPCTSTR lpPathNam
+ 
+   if (errno == ENOENT)
+   {
+-    CLog::Log(LOGWARNING,"%s, cant create dir <%s>. trying lower case.", __FUNCTION__, lpPathName);
+     CStdString strLower(lpPathName);
+     strLower.MakeLower();
++    // string is already lowercase, just return
++    if (lpPathName == strLower)
++      return 1;
+ 
++    CLog::Log(LOGWARNING,"%s, cant create dir <%s>. trying lower case.", __FUNCTION__, lpPathName);
+     if (mkdir(strLower.c_str(), 0755) == 0)
+       return 1;
+   }
+@@ -542,10 +553,13 @@ BOOL   RemoveDirectory(LPCTSTR lpPathNam
+ 
+   if (errno == ENOENT)
+   {
+-    CLog::Log(LOGWARNING,"%s, cant remove dir <%s>. trying lower case.", __FUNCTION__, lpPathName);
+     CStdString strLower(lpPathName);
+     strLower.MakeLower();
++    // string is already lowercase, just return
++    if (lpPathName == strLower)
++      return 1;
+ 
++    CLog::Log(LOGWARNING,"%s, cant remove dir <%s>. trying lower case.", __FUNCTION__, lpPathName);
+     if (rmdir(strLower.c_str()) == 0 || errno == ENOENT)
+       return 1;
+   }
+
