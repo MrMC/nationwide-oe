@@ -1,0 +1,38 @@
+diff --git a/xbmc/interfaces/Builtins.cpp b/xbmc/interfaces/Builtins.cpp
+--- a/xbmc/interfaces/Builtins.cpp
++++ b/xbmc/interfaces/Builtins.cpp
+@@ -86,6 +86,10 @@
+ #include "osx/CocoaInterface.h"
+ #endif
+ 
++#if defined(TARGET_LINUX)
++#include "linux/LinuxTimezone.h"
++#endif
++
+ #ifdef HAS_CDDA_RIPPER
+ #include "cdrip/CDDARipper.h"
+ #endif
+@@ -223,6 +223,9 @@ const BUILT_IN commands[] = {
+   { "ToggleDebug",                false,  "Enables/disables debug mode" },
+   { "StartPVRManager",            false,  "(Re)Starts the PVR manager" },
+   { "StopPVRManager",             false,  "Stops the PVR manager" },
++#if defined(TARGET_LINUX)
++  { "TimeZone",                   true,   "Set the system timezone" },
++#endif
+ };
+ 
+ bool CBuiltins::HasCommand(const CStdString& execString)
+@@ -1687,6 +1690,12 @@ int CBuiltins::Execute(const CStdString& execString)
+   {
+     g_application.StopPVRManager();
+   }
++#if defined(TARGET_LINUX)
++  else if (execute.Equals("TimeZone") && params.size() > 0)
++  {
++    g_timezone.SetTimezone(params[0]);
++  }
++#endif
+   else
+     return -1;
+   return 0;
+

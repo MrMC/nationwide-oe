@@ -1,0 +1,31 @@
+--- a/xbmc/interfaces/Builtins.cpp	2013-08-12 10:06:41.449835573 -0400
++++ b/xbmc/interfaces/Builtins.cpp	2013-08-12 10:13:26.399835525 -0400
+@@ -84,6 +84,7 @@
+ #endif
+ 
+ #if defined(TARGET_LINUX)
++#include "XBDateTime.h"
+ #include "linux/LinuxTimezone.h"
+ #endif
+ 
+@@ -223,6 +224,7 @@ const BUILT_IN commands[] = {
+   { "StopPVRManager",             false,  "Stops the PVR manager" },
+ #if defined(TARGET_LINUX)
+   { "TimeZone",                   true,   "Set the system timezone" },
++  { "Settings.Save",              false,  "Save the current settings to disk" },
+ #endif
+ };
+ 
+@@ -1667,6 +1669,11 @@ int CBuiltins::Execute(const CStdString&
+   else if (execute.Equals("TimeZone") && params.size() > 0)
+   {
+     g_timezone.SetTimezone(params[0]);
++    CDateTime::ResetTimezoneBias();
++  }
++  else if (execute.Equals("Settings.Save"))
++  {
++    g_settings.Save();
+   }
+ #endif
+   else
+
