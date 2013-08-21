@@ -8,6 +8,9 @@
         <enablerssfeeds>false</enablerssfeeds>
         <skin>skin.nationwide</skin>
     </lookandfeel>
+    <input>
+        <remoteaskeyboard>true</remoteaskeyboard>
+    </input>
     <audiooutput>
         <ac3passthrough>false</ac3passthrough>
         <audiodevice>ALSA:default</audiodevice>
