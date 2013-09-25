@@ -1,0 +1,26 @@
+# runlevels: openelec
+
+# cleanup old items
+# we no longer support an autostart.sh
+AUTOSTART="/storage/.config/autostart.sh"
+if [ -f $AUTOSTART ]; then
+  rm -f $AUTOSTART
+fi
+
+SIG_JC600="/proc/asound/Device"
+SIG_JC601="/proc/asound/Intel"
+
+if [ -d "$SIG_JC600" ]; then
+  cp -rf /storage/.config/jc600-asound.conf /storage/.config/asound.conf
+fi
+if [ -d "$SIG_JC601" ]; then
+  cp -rf /storage/.config/jc601-asound.conf /storage/.config/asound.conf
+fi
+
+/bin/mkdir -p /storage/.xbmc/addons
+/bin/ln -sf /storage/.config/webinterface.nationwide_membernet /storage/.xbmc/addons/webinterface.nationwide_membernet
+
+(
+  /bin/sleep 30; \
+  /usr/sbin/ntpdate pool.ntp.org; \
+)&
