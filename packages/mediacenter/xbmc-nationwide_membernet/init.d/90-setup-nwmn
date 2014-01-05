@@ -24,3 +24,7 @@ fi
   /bin/sleep 30; \
   /usr/sbin/ntpdate pool.ntp.org; \
 )&
+
+(
+  /bin/bash /storage/.config/purge_manager.sh
+)&
