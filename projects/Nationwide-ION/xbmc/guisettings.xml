@@ -9,6 +9,7 @@
         <skin>skin.nationwide</skin>
     </lookandfeel>
     <input>
+        <enablemouse>false</enablemouse>
         <remoteaskeyboard>true</remoteaskeyboard>
     </input>
     <audiooutput>
