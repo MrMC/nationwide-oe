@@ -1,0 +1,52 @@
+From efd351820d16719784db88b63ec685864c6014f6 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Sun, 2 Feb 2014 17:32:20 -0500
+Subject: [PATCH 2/5] [RED] add-builtins-timezone
+
+---
+ xbmc/interfaces/Builtins.cpp | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/xbmc/interfaces/Builtins.cpp b/xbmc/interfaces/Builtins.cpp
+index 0c84472..0a2d0c3 100644
+--- a/xbmc/interfaces/Builtins.cpp
++++ b/xbmc/interfaces/Builtins.cpp
+@@ -89,6 +89,11 @@
+ #include "osx/CocoaInterface.h"
+ #endif
+ 
++#if defined(TARGET_LINUX)
++#include "XBDateTime.h"
++#include "linux/LinuxTimezone.h"
++#endif
++
+ #ifdef HAS_CDDA_RIPPER
+ #include "cdrip/CDDARipper.h"
+ #endif
+@@ -224,6 +229,9 @@ const BUILT_IN commands[] = {
+   { "ToggleDebug",                false,  "Enables/disables debug mode" },
+   { "StartPVRManager",            false,  "(Re)Starts the PVR manager" },
+   { "StopPVRManager",             false,  "Stops the PVR manager" },
++#if defined(TARGET_LINUX)
++  { "TimeZone",                   true,   "Set the system timezone" },
++#endif
+ #if defined(TARGET_ANDROID)
+   { "StartAndroidActivity",       true,   "Launch an Android native app with the given package name.  Optional parms (in order): intent, dataType, dataURI." },
+ #endif
+@@ -1745,6 +1753,13 @@ int CBuiltins::Execute(const CStdString& execString)
+   {
+     g_application.StopPVRManager();
+   }
++  else if (execute.Equals("TimeZone") && params.size() > 0)
++  {
++#if defined(TARGET_LINUX)
++    g_timezone.SetTimezone(params[0]);
++    CDateTime::ResetTimezoneBias();
++#endif
++  }
+   else if (execute.Equals("StartAndroidActivity") && params.size() > 0)
+   {
+     CApplicationMessenger::Get().StartAndroidActivity(params);
+-- 
+1.8.3.4 (Apple Git-47)
+
