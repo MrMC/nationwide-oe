@@ -1,0 +1,94 @@
+From af25bda7d55568a552f789c483f3748f0a208798 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Sun, 2 Feb 2014 17:43:45 -0500
+Subject: [PATCH 5/5] [RED] silence-logging-spew
+
+---
+ xbmc/interfaces/AnnouncementManager.cpp | 2 +-
+ xbmc/music/MusicDatabase.cpp            | 4 ++--
+ xbmc/video/VideoDatabase.cpp            | 6 +++---
+ xbmc/windows/GUIWindowHome.cpp          | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/xbmc/interfaces/AnnouncementManager.cpp b/xbmc/interfaces/AnnouncementManager.cpp
+index 287f5a4..b681a42 100644
+--- a/xbmc/interfaces/AnnouncementManager.cpp
++++ b/xbmc/interfaces/AnnouncementManager.cpp
+@@ -72,7 +72,7 @@ void CAnnouncementManager::Announce(AnnouncementFlag flag, const char *sender, c
+ 
+ void CAnnouncementManager::Announce(AnnouncementFlag flag, const char *sender, const char *message, CVariant &data)
+ {
+-  CLog::Log(LOGDEBUG, "CAnnouncementManager - Announcement: %s from %s", message, sender);
++  //CLog::Log(LOGDEBUG, "CAnnouncementManager - Announcement: %s from %s", message, sender);
+   CSingleLock lock (m_critSection);
+   for (unsigned int i = 0; i < m_announcers.size(); i++)
+     m_announcers[i]->Announce(flag, sender, message, data);
+diff --git a/xbmc/music/MusicDatabase.cpp b/xbmc/music/MusicDatabase.cpp
+index 0f14c1a..70e0cce 100644
+--- a/xbmc/music/MusicDatabase.cpp
++++ b/xbmc/music/MusicDatabase.cpp
+@@ -3493,7 +3493,7 @@ bool CMusicDatabase::GetSongsByWhere(const CStdString &baseDir, const Filter &fi
+ 
+     strSQL = PrepareSQL(strSQL, !filter.fields.empty() && filter.fields.compare("*") != 0 ? filter.fields.c_str() : "songview.*") + strSQLExtra;
+ 
+-    CLog::Log(LOGDEBUG, "%s query = %s", __FUNCTION__, strSQL.c_str());
++    //CLog::Log(LOGDEBUG, "%s query = %s", __FUNCTION__, strSQL.c_str());
+     // run query
+     if (!m_pDS->query(strSQL.c_str()))
+       return false;
+@@ -4458,7 +4458,7 @@ bool CMusicDatabase::GetRandomSong(CFileItem* item, int& idSong, const Filter &f
+     if (!CDatabase::BuildSQL(strSQL, extFilter, strSQL))
+       return false;
+ 
+-    CLog::Log(LOGDEBUG, "%s query = %s", __FUNCTION__, strSQL.c_str());
++    //CLog::Log(LOGDEBUG, "%s query = %s", __FUNCTION__, strSQL.c_str());
+     // run query
+     if (!m_pDS->query(strSQL.c_str()))
+       return false;
+diff --git a/xbmc/video/VideoDatabase.cpp b/xbmc/video/VideoDatabase.cpp
+index 7d399d1..1ca48a7 100644
+--- a/xbmc/video/VideoDatabase.cpp
++++ b/xbmc/video/VideoDatabase.cpp
+@@ -966,7 +966,7 @@ int CVideoDatabase::GetMovieId(const CStdString& strFilenameAndPath)
+     else
+       strSQL=PrepareSQL("select idMovie from movie where idFile=%i", idFile);
+ 
+-    CLog::Log(LOGDEBUG, "%s (%s), query = %s", __FUNCTION__, CURL::GetRedacted(strFilenameAndPath).c_str(), strSQL.c_str());
++    //CLog::Log(LOGDEBUG, "%s (%s), query = %s", __FUNCTION__, CURL::GetRedacted(strFilenameAndPath).c_str(), strSQL.c_str());
+     m_pDS->query(strSQL.c_str());
+     if (m_pDS->num_rows() > 0)
+       idMovie = m_pDS->fv("idMovie").get_asInt();
+@@ -1048,7 +1048,7 @@ int CVideoDatabase::GetEpisodeId(const CStdString& strFilenameAndPath, int idEpi
+ 
+     CStdString strSQL=PrepareSQL("select idEpisode from episode where idFile=%i", idFile);
+ 
+-    CLog::Log(LOGDEBUG, "%s (%s), query = %s", __FUNCTION__, CURL::GetRedacted(strFilenameAndPath).c_str(), strSQL.c_str());
++    //CLog::Log(LOGDEBUG, "%s (%s), query = %s", __FUNCTION__, CURL::GetRedacted(strFilenameAndPath).c_str(), strSQL.c_str());
+     pDS->query(strSQL.c_str());
+     if (pDS->num_rows() > 0)
+     {
+@@ -1099,7 +1099,7 @@ int CVideoDatabase::GetMusicVideoId(const CStdString& strFilenameAndPath)
+ 
+     CStdString strSQL=PrepareSQL("select idMVideo from musicvideo where idFile=%i", idFile);
+ 
+-    CLog::Log(LOGDEBUG, "%s (%s), query = %s", __FUNCTION__, CURL::GetRedacted(strFilenameAndPath).c_str(), strSQL.c_str());
++    //CLog::Log(LOGDEBUG, "%s (%s), query = %s", __FUNCTION__, CURL::GetRedacted(strFilenameAndPath).c_str(), strSQL.c_str());
+     m_pDS->query(strSQL.c_str());
+     int idMVideo=-1;
+     if (m_pDS->num_rows() > 0)
+diff --git a/xbmc/windows/GUIWindowHome.cpp b/xbmc/windows/GUIWindowHome.cpp
+index 5736827..5e4025f 100644
+--- a/xbmc/windows/GUIWindowHome.cpp
++++ b/xbmc/windows/GUIWindowHome.cpp
+@@ -77,7 +77,7 @@ void CGUIWindowHome::Announce(AnnouncementFlag flag, const char *sender, const c
+ {
+   int ra_flag = 0;
+ 
+-  CLog::Log(LOGDEBUG, "GOT ANNOUNCEMENT, type: %i, from %s, message %s",(int)flag, sender, message);
++  //CLog::Log(LOGDEBUG, "GOT ANNOUNCEMENT, type: %i, from %s, message %s",(int)flag, sender, message);
+ 
+   // we are only interested in library changes
+   if ((flag & (VideoLibrary | AudioLibrary)) == 0)
+-- 
+1.8.3.4 (Apple Git-47)
+

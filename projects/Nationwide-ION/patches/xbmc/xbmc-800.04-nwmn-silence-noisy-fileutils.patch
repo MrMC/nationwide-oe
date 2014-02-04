@@ -1,0 +1,58 @@
+From ec8069c47480ca9980845c56d31fb96c7c58482d Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Sun, 2 Feb 2014 17:43:22 -0500
+Subject: [PATCH 4/5] [RED] silence-noisy-fileutils
+
+---
+ xbmc/linux/XFileUtils.cpp | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/xbmc/linux/XFileUtils.cpp b/xbmc/linux/XFileUtils.cpp
+index 646600c..c857241 100644
+--- a/xbmc/linux/XFileUtils.cpp
++++ b/xbmc/linux/XFileUtils.cpp
+@@ -331,6 +331,10 @@ BOOL DeleteFile(LPCTSTR lpFileName)
+   {
+     CStdString strLower(lpFileName);
+     StringUtils::ToLower(strLower);
++    // string is already lowercase, just return
++    if (lpFileName == strLower)
++      return 1;
++
+     CLog::Log(LOGERROR,"%s - cant delete file <%s>. trying lower case <%s>", __FUNCTION__, lpFileName, strLower.c_str());
+     if (unlink(strLower.c_str()) == 0)
+     {
+@@ -368,6 +372,10 @@ BOOL MoveFile(LPCTSTR lpExistingFileName, LPCTSTR lpNewFileName)
+   {
+     CStdString strLower(lpExistingFileName);
+     StringUtils::ToLower(strLower);
++    // string is already lowercase, just return
++    if (lpExistingFileName == strLower)
++      return 1;
++
+     CLog::Log(LOGERROR,"%s - cant move file <%s>. trying lower case <%s>", __FUNCTION__, lpExistingFileName, strLower.c_str());
+     if (rename(strLower.c_str(), lpNewFileName) == 0) {
+       CLog::Log(LOGDEBUG,"%s - successfuly moved file <%s>", __FUNCTION__, strLower.c_str());
+@@ -528,6 +536,9 @@ BOOL   CreateDirectory(LPCTSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttri
+     CLog::Log(LOGWARNING,"%s, cant create dir <%s>. trying lower case.", __FUNCTION__, lpPathName);
+     CStdString strLower(lpPathName);
+     StringUtils::ToLower(strLower);
++    // string is already lowercase, just return
++    if (lpPathName == strLower)
++      return 1;
+ 
+     if (mkdir(strLower.c_str(), 0755) == 0)
+       return 1;
+@@ -546,6 +557,9 @@ BOOL   RemoveDirectory(LPCTSTR lpPathName)
+     CLog::Log(LOGWARNING,"%s, cant remove dir <%s>. trying lower case.", __FUNCTION__, lpPathName);
+     CStdString strLower(lpPathName);
+     StringUtils::ToLower(strLower);
++    // string is already lowercase, just return
++    if (lpPathName == strLower)
++      return 1;
+ 
+     if (rmdir(strLower.c_str()) == 0 || errno == ENOENT)
+       return 1;
+-- 
+1.8.3.4 (Apple Git-47)
+

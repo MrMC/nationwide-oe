@@ -462,10 +462,10 @@ post_makeinstall_target() {
   rm -rf $INSTALL/usr/share/xsessions
 
   mkdir -p $INSTALL/usr/share/xbmc/addons
-    cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/xbmc/addons
-    $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.tv/addon.xml
-    cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/xbmc/addons
-    $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/xbmc/addons/repository.openelec.tv/addon.xml
+#    cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/xbmc/addons
+#    $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.tv/addon.xml
+#    cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/xbmc/addons
+#    $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/xbmc/addons/repository.openelec.tv/addon.xml
 
   mkdir -p $INSTALL/usr/lib/python"$PYTHON_VERSION"/site-packages/xbmc
     cp -R tools/EventClients/lib/python/* $INSTALL/usr/lib/python"$PYTHON_VERSION"/site-packages/xbmc
