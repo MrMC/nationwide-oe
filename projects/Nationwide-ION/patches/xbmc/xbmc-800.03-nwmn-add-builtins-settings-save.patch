@@ -1,0 +1,35 @@
+From ae3879901eb8b7036bc8edb26d3351c8c883479d Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Sun, 2 Feb 2014 17:42:46 -0500
+Subject: [PATCH 3/5] [RED] add-builtins-settings-save
+
+---
+ xbmc/interfaces/Builtins.cpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/xbmc/interfaces/Builtins.cpp b/xbmc/interfaces/Builtins.cpp
+index 0a2d0c3..94a17db 100644
+--- a/xbmc/interfaces/Builtins.cpp
++++ b/xbmc/interfaces/Builtins.cpp
+@@ -232,6 +232,7 @@ const BUILT_IN commands[] = {
+ #if defined(TARGET_LINUX)
+   { "TimeZone",                   true,   "Set the system timezone" },
+ #endif
++  { "Settings.Save",              false,  "Save the current settings to disk" },
+ #if defined(TARGET_ANDROID)
+   { "StartAndroidActivity",       true,   "Launch an Android native app with the given package name.  Optional parms (in order): intent, dataType, dataURI." },
+ #endif
+@@ -1760,6 +1761,10 @@ int CBuiltins::Execute(const CStdString& execString)
+     CDateTime::ResetTimezoneBias();
+ #endif
+   }
++  else if (execute.Equals("Settings.Save"))
++  {
++    CSettings::Get().Save();
++  }
+   else if (execute.Equals("StartAndroidActivity") && params.size() > 0)
+   {
+     CApplicationMessenger::Get().StartAndroidActivity(params);
+-- 
+1.8.3.4 (Apple Git-47)
+

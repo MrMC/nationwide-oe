@@ -48,6 +48,9 @@ if [ "$MEDIACENTER" = "xbmc" ]; then
 
 # other packages
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET service.openelec.settings"
+
+# nationwide_membernet
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS xbmc-nationwide_membernet"
 fi
 
 # if [ ! "$LCD_DRIVER" = "none" ]; then
