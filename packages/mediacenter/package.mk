@@ -47,7 +47,7 @@ if [ "$MEDIACENTER" = "xbmc" ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-addon-xvdr"
 
 # other packages
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET service.openelec.settings"
+# PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET service.openelec.settings"
 
 # nationwide_membernet
   PKG_DEPENDS_TARGET="$PKG_DEPENDS xbmc-nationwide_membernet"
