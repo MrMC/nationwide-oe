@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="xbmc-nationwide_membernet"
-PKG_VERSION="4.1.0"
+PKG_VERSION="4.1.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="prop."
@@ -28,7 +28,7 @@ PKG_PRIORITY="optional"
 PKG_SECTION="mediacenter"
 PKG_SHORTDESC="xbmc-nationwide_membernet: nationwide membernet services"
 PKG_LONGDESC="xbmc-nationwide_membernet: nationwide membernet services"
-PKG_GITVERSION="0f0a226a087218b749f0aab3d75bbfe16e16fc9d"
+PKG_GITVERSION="f077227870681eb1a1d4b1298c0441fa7e581c94"
 PKG_GITURL="git@github.com:nicholasstokes/addons.nationwide.git"
 
 PKG_IS_ADDON="no"
@@ -71,6 +71,7 @@ make_target() {
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/share/xbmc/addons/service.openelec.settings
+    rm -rf $INSTALL/usr/share/xbmc/addons/service.openelec.settings/*
     cp -R addons.nationwide.git/service.openelec.settings/* $INSTALL/usr/share/xbmc/addons/service.openelec.settings
 
   mkdir -p $INSTALL/usr/share/xbmc/addons/script.nationwide_helper
