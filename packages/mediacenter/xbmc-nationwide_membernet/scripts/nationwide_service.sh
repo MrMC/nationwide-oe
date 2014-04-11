@@ -4,6 +4,12 @@
 rm -f /storage/.config/jc600-asound.conf
 rm -f /storage/.config/jc601-asound.conf
 rm -f /storage/.config/purge_manager.sh
+# on frodo to gotham updates, nuke guisettings.xml, too much has changed.
+FILE="/storage/.xbmc/userdata/guisettings.xml"
+if grep -q "haslcd" $FILE; then
+  rm -f $FILE
+fi
+
 
 # setup dual analog/hdmi audio output
 # only one of the below audio devices will be present
