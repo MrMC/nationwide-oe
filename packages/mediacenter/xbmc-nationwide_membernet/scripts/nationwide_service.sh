@@ -24,7 +24,7 @@ fi
 # make sure time is right
 (
   /bin/sleep 30; \
-  /usr/sbin/ntpdate pool.ntp.org; \
+  /usr/sbin/ntpdate pool.ntp.org;
 )&
 
 # startup purge manager
