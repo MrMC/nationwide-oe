@@ -1,0 +1,27 @@
+From 4d8969439e819362648d48f5b85a3c751d01e239 Mon Sep 17 00:00:00 2001
+From: montellese <montellese@xbmc.org>
+Date: Thu, 6 Feb 2014 19:13:31 +0100
+Subject: [PATCH] settings: fix not being able to overwrite the default value
+ of string/addon settings with an empty value
+
+---
+ xbmc/settings/lib/Setting.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/xbmc/settings/lib/Setting.cpp b/xbmc/settings/lib/Setting.cpp
+index 5106a45..2963a6f 100644
+--- a/xbmc/settings/lib/Setting.cpp
++++ b/xbmc/settings/lib/Setting.cpp
+@@ -1145,7 +1145,8 @@ bool CSettingString::Deserialize(const TiXmlNode *node, bool update /* = false *
+ 
+   // get the default value
+   CStdString value;
+-  if (XMLUtils::GetString(node, SETTING_XML_ELM_DEFAULT, value) && !value.empty())
++  if (XMLUtils::GetString(node, SETTING_XML_ELM_DEFAULT, value) &&
++     (!value.empty() || m_allowEmpty))
+     m_value = m_default = value;
+   else if (!update && !m_allowEmpty)
+   {
+-- 
+1.8.5.1
+
