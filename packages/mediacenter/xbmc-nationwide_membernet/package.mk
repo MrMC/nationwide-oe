@@ -100,6 +100,9 @@ makeinstall_target() {
   # overriding XBMC’s Splash image
   mkdir -p $INSTALL/usr/share/xbmc/media
     cp -f $PKG_DIR/splash/splash.png $INSTALL/usr/share/xbmc/media/Splash.png
+
+  mkdir -p $INSTALL/usr/config
+    cp -PR $PKG_DIR/config/* $INSTALL/usr/config
 }
 
 post_install() {
