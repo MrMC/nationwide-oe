@@ -1,0 +1,15 @@
+--- a/src/udev/udev-builtin-input_id.c	2014-05-11 17:08:35.739626475 -0400
++++ b/src/udev/udev-builtin-input_id.c	2014-05-11 17:10:01.309626517 -0400
+@@ -133,8 +133,10 @@ static void test_pointers (struct udev_d
+             test_bit (BTN_MOUSE, bitmask_key))
+                 is_mouse = 1;
+ 
+-        if (is_mouse)
++        if (is_mouse) {
+                 udev_builtin_add_property(dev, test, "ID_INPUT_MOUSE", "1");
++                udev_builtin_add_property(dev, test, "ID_INPUT_KEY", "1");
++        }
+         if (is_touchpad)
+                 udev_builtin_add_property(dev, test, "ID_INPUT_TOUCHPAD", "1");
+ }
+
