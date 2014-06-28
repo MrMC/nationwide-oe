@@ -1,0 +1,3 @@
+keyboard:usb:v2319p00A2*
+ KEYBOARD_KEY_90001=enter
+ KEYBOARD_KEY_90002=back
