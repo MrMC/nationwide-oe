@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="xbmc-nationwide_membernet"
-PKG_VERSION="4.1.4"
+PKG_VERSION="4.1.5"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="prop."
@@ -28,7 +28,7 @@ PKG_PRIORITY="optional"
 PKG_SECTION="mediacenter"
 PKG_SHORTDESC="xbmc-nationwide_membernet: nationwide membernet services"
 PKG_LONGDESC="xbmc-nationwide_membernet: nationwide membernet services"
-PKG_GITVERSION="f077227870681eb1a1d4b1298c0441fa7e581c94"
+PKG_GITVERSION="c22cc0d49d07c7694301414a1ff5d0d5fac66371"
 PKG_GITURL="git@github.com:nicholasstokes/addons.nationwide.git"
 
 PKG_IS_ADDON="no"
