@@ -1,4 +1,4 @@
-# Name of the Distro to build (full name, without special charcters)
+# Name of the Distro to build (full name, without special characters)
   DISTRONAME="OpenELEC"
 
 # short project description
@@ -70,7 +70,7 @@
       ;;
   esac
 
-# Build optimizations (size/speed)
+# Build optimizations (size/normal)
   OPTIMIZATIONS="size"
 
 # Project CFLAGS
@@ -93,6 +93,15 @@
 
 # Target Configfile for u-boot
   UBOOT_CONFIGFILE=""
+
+# Kernel target for u-boot (default 'uImage' if BOOTLOADER=u-boot) (uImage / zImage)
+  KERNEL_UBOOT_TARGET=""
+
+# Kernel extra targets to build
+  KERNEL_UBOOT_EXTRA_TARGET=""
+
+# Additional kernel make parameters (for example to specify the u-boot loadaddress)
+  KERNEL_MAKE_EXTRACMD=""
 
 # GCC to use. values can be:
 # default:  default mainline gcc
@@ -152,6 +161,9 @@
 # build and install PulseAudio support (yes / no)
   PULSEAUDIO_SUPPORT="no"
 
+# build and install espeak support (yes / no)
+  ESPEAK_SUPPORT="no"
+
 # build and install with non-free support
 # (RAR compression support in XBMC) (yes / no)
   NONFREE_SUPPORT="yes"
@@ -163,9 +175,6 @@
 # build and install with LAME cdrip encoder support
   ENCODER_LAME="no"
 
-# build and install with VORBIS cdrip encoder support
-  ENCODER_VORBIS="no"
-
 # build and install with BluRay support (yes / no)
   BLURAY_SUPPORT="no"
 
@@ -173,10 +182,7 @@
 # for a list of additinoal drivers see packages/linux-drivers
 # Space separated list is supported,
 # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-  ADDITIONAL_DRIVERS="RTL8192CU RTL8188EU dvbhdhomerun"
-
-# build with network support (yes / no)
-  NETWORK="yes"
+  ADDITIONAL_DRIVERS="RTL8192CU RTL8192DU RTL8188EU RTL8812AU dvbhdhomerun"
 
 # build and install bluetooth support (yes / no)
   BLUETOOTH_SUPPORT="no"
@@ -246,8 +252,8 @@
 # OpenGL-ES implementation to use (no)
   OPENGLES="no"
 
-# Windowmanager to use (ratpoison / none)
-  WINDOWMANAGER="ratpoison"
+# Windowmanager to use (ratpoison / fluxbox / none)
+  WINDOWMANAGER="fluxbox"
 
 # include uvesafb support (yes / no)
   UVESAFB_SUPPORT="yes"
@@ -255,10 +261,16 @@
 # Displayserver to use (x11 / no)
   DISPLAYSERVER="x11"
 
-# Xorg Graphic drivers to use (all / i915,i965,r200,r300,r600,nvidia,nouveau,vmware)
+# Xorg Graphic drivers to use (all / i915,i965,r200,r300,r600,nvidia,nouveau)
 # Space separated list is supported,
 # e.g. GRAPHIC_DRIVERS="i915 i965 r300 r600 nvidia nouveau"
-  GRAPHIC_DRIVERS="r200 r300 r600 radeonsi i915 i965 nvidia"
+  if [ "$TARGET_ARCH" = "i386" ]; then
+    # TODO: create Legacy build with OpenELEC-4.2
+    # install legacy drivers to i386 ARCH
+    GRAPHIC_DRIVERS="r200 r300 r600 i915 i965 nvidia-legacy"
+  elif [ "$TARGET_ARCH" = "x86_64" ]; then
+    GRAPHIC_DRIVERS="r300 r600 radeonsi i915 i965 nvidia"
+  fi
 
 # XBMC Player implementation to use (default / bcm2835-driver)
   XBMCPLAYER_DRIVER="default"
@@ -267,7 +279,7 @@
   VDPAU="yes"
 
 # Use VAAPI video acceleration (needs intel i965 driver and a supported card)
-  VAAPI="no"
+  VAAPI="yes"
 
 # Use Broadcom CrystalHD Decoder Card for video acceleration 
 # (needs Kernelsupport for Broadcom Decoder Card and a supported card)
@@ -305,7 +317,7 @@
   LCD_DRIVER="none"
 
 # Modules to install in initramfs for early boot
-  INITRAMFS_MODULES="xhci-hcd"
+  INITRAMFS_MODULES=""
 
 # additional Firmware to use (dvb-firmware, misc-firmware, wlan-firmware)
 # Space separated list is supported,
@@ -341,9 +353,6 @@
 
 # Perf support in development builds (yes / no)
   PERF_SUPPORT="yes"
-
-# Coreboot support (yes / no)
-  COREBOOT="no"
 
 # Distribution Specific source location
   DISTRO_MIRROR="http://sources.openelec.tv/mirror"

@@ -1,25 +1,35 @@
 #!/bin/bash
 
 # check and cleanup files from previous versions
+echo "cleanup old versions bits"
 rm -f /storage/.config/jc600-asound.conf
 rm -f /storage/.config/jc601-asound.conf
 rm -f /storage/.config/purge_manager.sh
 # on frodo to gotham updates, nuke guisettings.xml, too much has changed.
 FILE="/storage/.xbmc/userdata/guisettings.xml"
 if grep -q "haslcd" $FILE; then
+  echo "updating guisettings from frodo to gotham"
   rm -f $FILE
 fi
 
 
 # setup dual analog/hdmi audio output
 # only one of the below audio devices will be present
+echo "setting up dual audio"
 SIG_JC600="/proc/asound/Device"
 SIG_JC601="/proc/asound/Intel"
+SIG_JC310="/proc/asound/PCH"
 if [ -d "$SIG_JC600" ]; then
+  echo "found" $SIG_JC600
   cp -rf /usr/share/nationwide/jc600-asound.conf /storage/.config/asound.conf
 fi
 if [ -d "$SIG_JC601" ]; then
+  echo "found" $SIG_JC601
   cp -rf /usr/share/nationwide/jc601-asound.conf /storage/.config/asound.conf
+fi
+if [ -d "$SIG_JC310" ]; then
+  echo "found" $SIG_JC310
+  cp -rf /usr/share/nationwide/jc310-asound.conf /storage/.config/asound.conf
 fi
 
 # setup webinterface.nationwide_membernet

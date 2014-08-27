@@ -17,18 +17,18 @@
 ################################################################################
 
 PKG_NAME="xbmc-nationwide_membernet"
-PKG_VERSION="4.1.7"
+PKG_VERSION="4.2.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="prop."
 PKG_SITE="http://www.nationwidegroup.org"
 PKG_SOURCE_DIR="$PKG_NAME"
-PKG_DEPENDS_TARGET="toolchain Python xbmc"
+PKG_DEPENDS_TARGET="toolchain Python connman pygobject dbus-python xbmc"
 PKG_PRIORITY="optional"
 PKG_SECTION="mediacenter"
 PKG_SHORTDESC="xbmc-nationwide_membernet: nationwide membernet services"
 PKG_LONGDESC="xbmc-nationwide_membernet: nationwide membernet services"
-PKG_GITVERSION="f07afa4fb24d5ed3bb888ad62d9471f1e71c2fca"
+PKG_GITVERSION="08832b097e83f092998ede8816c92855e42f6e88"
 PKG_GITURL="git@github.com:nicholasstokes/addons.nationwide.git"
 
 PKG_IS_ADDON="no"
