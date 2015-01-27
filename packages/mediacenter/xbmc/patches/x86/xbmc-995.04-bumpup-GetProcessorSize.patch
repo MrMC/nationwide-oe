@@ -1,0 +1,12 @@
+--- a/xbmc/cores/VideoRenderers/LinuxRendererGL.cpp	2014-09-21 13:04:38.211069406 -0400
++++ b/xbmc/cores/VideoRenderers/LinuxRendererGL-mod.cpp	2014-09-21 13:01:04.027074924 -0400
+@@ -3664,7 +3664,7 @@ unsigned int CLinuxRendererGL::GetProces
+   || m_format == RENDER_FMT_VDPAU_420
+   || m_format == RENDER_FMT_VAAPI
+   || m_format == RENDER_FMT_CVBREF)
+-    return 1;
++    return 3;
+   else
+     return 0;
+ }
+
