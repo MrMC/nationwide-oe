@@ -1,0 +1,28 @@
+From d3b93783e52b4d9fedf0a02e7800861e891fff6e Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Fri, 24 Jul 2015 14:44:02 +0400
+Subject: [PATCH 23/24] [nwmn] do not set language as it tends to reload the
+ skin on startup, not good for us and English is
+ default anyhow
+
+---
+ system/settings/appliance.xml |    3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/system/settings/appliance.xml b/system/settings/appliance.xml
+index 8698755..423e6b4 100644
+--- a/system/settings/appliance.xml
++++ b/system/settings/appliance.xml
+@@ -32,9 +32,6 @@
+ 
+     <category id="locale">
+       <group id="1">
+-        <setting id="locale.language">
+-          <default>English</default>
+-        </setting>
+         <setting id="locale.country">
+           <default>USA (12h)</default>
+         </setting>
+-- 
+1.7.9.5
+

@@ -20,10 +20,10 @@
 # Skins to install (Confluence)
 # Space separated list is supported,
 # e.g. SKINS="Confluence"
-  SKINS="Confluence"
+  SKINS="Confluence Nationwide"
 
 # Default Skin (Confluence)
-  SKIN_DEFAULT="Confluence"
+  SKIN_DEFAULT="Nationwide"
 
 # install extra subtitle Fonts for KODI (yes / no)
   KODI_EXTRA_FONTS="yes"

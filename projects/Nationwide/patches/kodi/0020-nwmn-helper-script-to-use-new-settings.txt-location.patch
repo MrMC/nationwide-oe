@@ -1,0 +1,34 @@
+From 76779fc833f39a0c2c7d2f25ad69b6a628f40c48 Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Thu, 23 Jul 2015 23:49:45 +0400
+Subject: [PATCH 20/24] [nwmn] helper script to use new settings.txt location
+
+---
+ addons/script.nationwide_helper/default.py |    5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/addons/script.nationwide_helper/default.py b/addons/script.nationwide_helper/default.py
+index 260884f..c8bce80 100644
+--- a/addons/script.nationwide_helper/default.py
++++ b/addons/script.nationwide_helper/default.py
+@@ -74,9 +74,7 @@ if ("upload" in str(sys.argv[1])):
+ else:
+ 	json = str(sys.argv[2]).replace(";",",").replace("values=","") ##cleanup the string after XBMC sends it
+ 
+-	web_folder = xbmc.translatePath("special://home/addons/webinterface.nationwide_membernet")
+-	if not os.path.exists(web_folder):
+-	  os.makedirs(web_folder)
++	web_folder = xbmc.translatePath("special://home/MN")
+ 
+ 	file(os.path.join(web_folder , "settings.txt"),'w').write(json)
+ 
+@@ -88,4 +86,5 @@ else:
+ 		setting = "%s_%s" % (js, ass)
+ 		xbmc.executebuiltin("MN.SetString(mn.%s,%s)" % (setting,str(json_query[js][ass])))
+ 
++	xbmc.sleep(2000)
+ 	MN.Refresh()   
+\ No newline at end of file
+-- 
+1.7.9.5
+

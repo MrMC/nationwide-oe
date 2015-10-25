@@ -1,0 +1,25 @@
+From 73c6edd8d2a64047a2de5feb439e7f511c068612 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Wed, 22 Jul 2015 20:43:59 -0400
+Subject: [PATCH 04/24] [nwmn] aml paranoid check for valid demuxer packet
+
+---
+ .../DVDCodecs/Video/DVDVideoCodecAmlogic.cpp       |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/cores/dvdplayer/DVDCodecs/Video/DVDVideoCodecAmlogic.cpp b/xbmc/cores/dvdplayer/DVDCodecs/Video/DVDVideoCodecAmlogic.cpp
+index 44cf963..cf3af8e 100644
+--- a/xbmc/cores/dvdplayer/DVDCodecs/Video/DVDVideoCodecAmlogic.cpp
++++ b/xbmc/cores/dvdplayer/DVDCodecs/Video/DVDVideoCodecAmlogic.cpp
+@@ -230,7 +230,7 @@ int CDVDVideoCodecAmlogic::Decode(uint8_t *pData, int iSize, double dts, double
+ {
+   // Handle Input, add demuxer packet to input queue, we must accept it or
+   // it will be discarded as DVDPlayerVideo has no concept of "try again".
+-  if (pData)
++  if (pData && iSize)
+   {
+     if (m_bitstream)
+     {
+-- 
+1.7.9.5
+

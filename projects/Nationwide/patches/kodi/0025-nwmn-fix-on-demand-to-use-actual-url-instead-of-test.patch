@@ -1,0 +1,26 @@
+From 22213cdea33d06366b35fb322f95c97e9f7da9bc Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Sun, 2 Aug 2015 08:25:25 -0400
+Subject: [PATCH 1/2] [nwmn] fix on demand to use actual url instead of test
+ url
+
+---
+ xbmc/nwmn/GUIDialogMNDemand.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/nwmn/GUIDialogMNDemand.cpp b/xbmc/nwmn/GUIDialogMNDemand.cpp
+index 7294534..050cab6 100644
+--- a/xbmc/nwmn/GUIDialogMNDemand.cpp
++++ b/xbmc/nwmn/GUIDialogMNDemand.cpp
+@@ -74,7 +74,7 @@ bool CGUIDialogMNDemand::OnMessage(CGUIMessage& message)
+ 
+         CFileItem item;
+         item.SetLabel2(m_OnDemand.items[listItem].title);
+-        item.SetPath(CSpecialProtocol::TranslatePath("special://home/MN/downloads/10/54497.m4v"));
++        item.SetPath(m_OnDemand.items[listItem].video_url);
+ 
+         item.GetVideoInfoTag()->m_strTitle = m_OnDemand.items[listItem].title;
+         item.GetVideoInfoTag()->m_streamDetails.Reset();
+-- 
+1.9.5 (Apple Git-50.3)
+

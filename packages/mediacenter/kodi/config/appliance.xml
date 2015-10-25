@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <settings>
+  <section id="appearance">
+    <category id="lookandfeel">
+      <group id="1">
+        <setting id="lookandfeel.skin">
+          <default>skin.nationwide</default>
+        </setting>
+     </group>
+      <group id="2">
+        <setting id="lookandfeel.enablerssfeeds">
+          <default>false</default>
+        </setting>
+      </group>
+    </category>
+
+    <category id="screensaver">
+      <group id="1">
+        <setting id="screensaver.mode">
+          <default></default>
+        </setting>
+      </group>
+      <group id="2">
+        <setting id="screensaver.usemusicvisinstead">
+          <default>false</default>
+        </setting>
+        <setting id="screensaver.usedimonpause">
+          <default>false</default>
+        </setting>
+      </group>
+    </category>
+
+    <category id="locale">
+      <group id="1">
+        <setting id="locale.country">
+          <default>USA (12h)</default>
+        </setting>
+      </group>
+      <group id="2">
+        <setting id="locale.timezonecountry">
+          <default>United States</default>
+        </setting>
+        <setting id="locale.timezone">
+          <default>America/New_York</default>
+       </setting>
+      </group>
+    </category>
+  </section>
+
   <section id="system">
     <category id="videoscreen">
       <group id="1">
@@ -8,17 +55,59 @@
         </setting>
       </group>
     </category>
+
+    <category id="audiooutput">
+      <group id="2">
+        <setting id="audiooutput.guisoundmode">
+          <default>0</default>
+        </setting>
+      </group>
+      <group id="3">
+        <setting id="audiooutput.ac3passthrough">
+          <default>false</default>
+        </setting>
+      </group>
+      <setting id="general.addonautoupdate">
+        <default>false</default>
+      </setting>
+      <setting id="general.addonnotifications">
+        <default>false</default>
+      </setting>
+    </category>
+
+    <category id="input">
+      <group id="2">
+        <setting id="input.remoteaskeyboard">
+          <default>true</default>
+        </setting>
+        <setting id="input.enablemouse">
+          <default>false</default>
+        </setting>
+      </group>
+    </category>
   </section>
 
   <section id="services">
+    <category id="general">
+      <setting id="services.devicename">
+        <default>MemberNet-TV</default>
+     </setting>
+    </category>
+
     <category id="airplay">
       <group id="1">
         <setting id="services.airplay">
           <default>true</default>
         </setting>
+        <setting id="services.useairplaypassword">
+          <default>true</default>
+        </setting>
+        <setting id="services.airplaypassword">
+          <default>membernet</default>
+        </setting>
       </group>
     </category>
-
+    
     <category id="zeroconf">
       <group id="1">
         <setting id="services.zeroconf">
@@ -32,28 +121,20 @@
         <setting id="services.webserver">
           <default>true</default>
         </setting>
-      </group>
+        <setting id="services.webserverpassword">
+          <default>membernet</default>
+        </setting>
+        <setting id="services.webserverusername">
+          <default>membernet</default>
+        </setting>
+        <setting id="services.webskin">
+          <default>webinterface.nationwide_membernet</default>
+        </setting>
+     </group>
     </category>
   </section>
 
   <section id="pvr">
-    <category id="epg" label="22020" help="36218">
-      <group id="2">
-        <setting id="epg.preventupdateswhileplayingtv" type="boolean" label="19230" help="36222">
-          <default>true</default>
-        </setting>
-        <setting id="epg.ignoredbforclient" type="boolean" label="19072" help="36223">
-          <default>true</default>
-        </setting>
-      </group>
-    </category>
-    <category id="pvrplayback">
-      <group id="1">
-        <setting id="pvrplayback.signalquality" type="boolean" label="19037" help="36229">
-          <default>false</default>
-        </setting>
-      </group>
-    </category>
     <category id="pvrpowermanagement">
       <group id="2">
         <setting id="pvrpowermanagement.setwakeupcmd" type="string" label="19245" help="">

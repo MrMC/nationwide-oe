@@ -1,0 +1,103 @@
+From 9cf9ad6587486221f44b68e23f89ea07df6c2f02 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:25:35 -0400
+Subject: [PATCH 07/24] [nwmn] fixed, do not over-ride SDL defines with our
+ own junk
+
+---
+ configure.ac                  |    4 ++--
+ xbmc/Application.cpp          |    4 ++--
+ xbmc/input/InputManager.cpp   |    4 ++--
+ xbmc/video/Teletext.cpp       |    4 ++--
+ xbmc/windowing/WinEventsSDL.h |    4 ++--
+ 5 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6a2a585..5907616 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1269,7 +1269,7 @@ if test "$host_vendor" = "apple" ; then
+   if test "$use_arch" != "arm"; then
+     AC_CHECK_LIB([SDL],      [main],, AC_MSG_ERROR($missing_library))
+     AC_DEFINE([HAVE_SDL],[1],["Define to 1 if using sdl"])
+-    AC_DEFINE([SDL_VERSION],[1],["SDL major version"])
++    AC_DEFINE([HAVE_SDL_VERSION],[1],["SDL major version"])
+   fi
+ else
+ if test "$target_platform" != "target_android" ; then
+@@ -1292,7 +1292,7 @@ fi
+   # joystick
+   if test "$use_joystick" != "no"; then
+     PKG_CHECK_MODULES([SDL2], [sdl2],
+-      [AC_DEFINE([SDL_VERSION],[2],["SDL major version"])
++      [AC_DEFINE([HAVE_SDL_VERSION],[2],["SDL major version"])
+        AC_DEFINE([HAVE_SDL],[1],["Define to 1 if using sdl"])
+        INCLUDES="$INCLUDES $SDL2_CFLAGS"; LIBS="$LIBS $SDL2_LIBS"; use_joystick="yes"],
+       [if test "$use_joystick" = "yes"; then
+diff --git a/xbmc/Application.cpp b/xbmc/Application.cpp
+index 697f278..a250413 100644
+--- a/xbmc/Application.cpp
++++ b/xbmc/Application.cpp
+@@ -91,9 +91,9 @@
+ 
+ #include "input/KeyboardLayoutManager.h"
+ 
+-#if SDL_VERSION == 1
++#if HAVE_SDL_VERSION == 1
+ #include <SDL/SDL.h>
+-#elif SDL_VERSION == 2
++#elif HAVE_SDL_VERSION == 2
+ #include <SDL2/SDL.h>
+ #endif
+ 
+diff --git a/xbmc/input/InputManager.cpp b/xbmc/input/InputManager.cpp
+index 2ae10aa..cdeff03 100644
+--- a/xbmc/input/InputManager.cpp
++++ b/xbmc/input/InputManager.cpp
+@@ -43,9 +43,9 @@
+ #include "input/windows/IRServerSuite.h"
+ #endif
+ 
+-#if SDL_VERSION == 1
++#if HAVE_SDL_VERSION == 1
+ #include <SDL/SDL.h>
+-#elif SDL_VERSION == 2
++#elif HAVE_SDL_VERSION == 2
+ #include <SDL2/SDL.h>
+ #endif
+ 
+diff --git a/xbmc/video/Teletext.cpp b/xbmc/video/Teletext.cpp
+index 0e1540a..2e36ceb 100644
+--- a/xbmc/video/Teletext.cpp
++++ b/xbmc/video/Teletext.cpp
+@@ -32,9 +32,9 @@
+ #include "filesystem/SpecialProtocol.h"
+ #include "guilib/GraphicContext.h"
+ 
+-#if SDL_VERSION == 1
++#if HAVE_SDL_VERSION == 1
+ #include <SDL/SDL_stdinc.h>
+-#elif SDL_VERSION == 2
++#elif HAVE_SDL_VERSION == 2
+ #include <SDL2/SDL_stdinc.h>
+ #else
+ #define SDL_memset4(dst, val, len)		\
+diff --git a/xbmc/windowing/WinEventsSDL.h b/xbmc/windowing/WinEventsSDL.h
+index 42fd146..6a23658 100644
+--- a/xbmc/windowing/WinEventsSDL.h
++++ b/xbmc/windowing/WinEventsSDL.h
+@@ -25,9 +25,9 @@
+ #include "system.h"
+ 
+ #ifdef HAS_SDL
+-#if SDL_VERSION == 1
++#if HAVE_SDL_VERSION == 1
+ #include <SDL/SDL_events.h>
+-#elif SDL_VERSION == 2
++#elif HAVE_SDL_VERSION == 2
+ #include <SDL/SDL_events.h>
+ #endif
+ 
+-- 
+1.7.9.5
+

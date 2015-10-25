@@ -1,0 +1,27 @@
+From fb97d98ce7f8521c83ce743af76e135153fd9ad8 Mon Sep 17 00:00:00 2001
+From: Memphiz <memphis@machzwo.de>
+Date: Thu, 23 Jul 2015 22:17:45 +0200
+Subject: [PATCH 24/24] - ensure that file decriptor for logfile is NULL'ed in
+ the d'tor to minimize issues when static/global
+ object destruction order results in CLog accesses
+ past destruction of the CLog instance
+
+---
+ xbmc/utils/posix/PosixInterfaceForCLog.cpp |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/xbmc/utils/posix/PosixInterfaceForCLog.cpp b/xbmc/utils/posix/PosixInterfaceForCLog.cpp
+index 3f80594..4b7d096 100644
+--- a/xbmc/utils/posix/PosixInterfaceForCLog.cpp
++++ b/xbmc/utils/posix/PosixInterfaceForCLog.cpp
+@@ -40,6 +40,7 @@ CPosixInterfaceForCLog::~CPosixInterfaceForCLog()
+ {
+   if (m_file)
+     fclose(m_file);
++  m_file = NULL;
+ }
+ 
+ bool CPosixInterfaceForCLog::OpenLogFile(const std::string &logFilename, const std::string &backupOldLogToFilename)
+-- 
+1.7.9.5
+

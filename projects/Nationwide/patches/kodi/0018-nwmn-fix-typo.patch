@@ -1,0 +1,25 @@
+From 449cf34159b46209c4b5210463b9c39a6d75de2b Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Thu, 23 Jul 2015 23:48:27 +0400
+Subject: [PATCH 18/24] [nwmn] fix typo
+
+---
+ xbmc/interfaces/Builtins.cpp |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/interfaces/Builtins.cpp b/xbmc/interfaces/Builtins.cpp
+index 4c2dac2..44108f8 100644
+--- a/xbmc/interfaces/Builtins.cpp
++++ b/xbmc/interfaces/Builtins.cpp
+@@ -174,7 +174,7 @@ const BUILT_IN commands[] = {
+   { "Notification",               true,   "Shows a notification on screen, specify header, then message, and optionally time in milliseconds and a icon." },
+   { "PlayDVD",                    false,  "Plays the inserted CD or DVD media from the DVD-ROM Drive!" },
+   { "RipCD",                      false,  "Rip the currently inserted audio CD"},
+-  { "MN.SetString",               true,   "Set MN stettings"},
++  { "MN.SetString",               true,   "Set MN settings"},
+   { "Skin.ToggleSetting",         true,   "Toggles a skin setting on or off" },
+   { "Skin.SetString",             true,   "Prompts and sets skin string" },
+   { "Skin.SetNumeric",            true,   "Prompts and sets numeric input" },
+-- 
+1.7.9.5
+

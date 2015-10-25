@@ -1,0 +1,50 @@
+From 178e9fc8eba52d76c7a49da119a1ef6500e4d781 Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Fri, 24 Jul 2015 01:24:05 +0400
+Subject: [PATCH 21/24] [nwmn] test to see if 'special://home/MN/settings.txt'
+ exists and use it
+
+---
+ .../scripts/nationwide.settings.js                 |   23 ++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/addons/webinterface.nationwide_membernet/scripts/nationwide.settings.js b/addons/webinterface.nationwide_membernet/scripts/nationwide.settings.js
+index e59fc75..c65583e 100644
+--- a/addons/webinterface.nationwide_membernet/scripts/nationwide.settings.js
++++ b/addons/webinterface.nationwide_membernet/scripts/nationwide.settings.js
+@@ -106,13 +106,28 @@
+ 		 * @return void
+ 		 */
+ 		'readSettings': function(callback) {
+-			var url = 'settings.txt?' + Math.random(10); //'vfs/' + encodeURIComponent('special://home/addons/script.nationwide_helper/settings.txt');
+-			$.getJSON( url, function(settings, status) {
+-				if (status == 'success' && settings) {
++			var setting_url;
++			$.ajax({
++				cache: false,
++				async: false,
++				type: 'GET',
++				url: 'vfs/' + encodeURIComponent('special://home/MN/settings.txt'),
++				success: function(msg){
++				setting_url = 'vfs/' + encodeURIComponent('special://home/MN/settings.txt');
++				},
++				error: function(jqXHR, textStatus, errorThrown){
++				setting_url = 'settings.txt?' + Math.random(10);
++				}
++			});
++			$.ajax({
++				cache: false,
++				url: setting_url,
++				dataType: "json",
++				success: function(settings) {
+ 					if (typeof(callback) == 'function') {
+ 						callback(settings, 'success');
+ 					}
+-				}
++			    }
+ 			});
+ 		},
+ 
+-- 
+1.7.9.5
+

@@ -1,0 +1,38 @@
+From 0a93eb01d6d4ac6f35380a379022491a2e279526 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:39:21 -0400
+Subject: [PATCH 11/24] [nwmn] fixed, XBMCDelegate warnings
+
+---
+ xbmc/main/osx/SDLMain.h  |    2 +-
+ xbmc/main/osx/SDLMain.mm |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xbmc/main/osx/SDLMain.h b/xbmc/main/osx/SDLMain.h
+index 8771e6c..db186a5 100644
+--- a/xbmc/main/osx/SDLMain.h
++++ b/xbmc/main/osx/SDLMain.h
+@@ -13,6 +13,6 @@
+ 
+ #import <Cocoa/Cocoa.h>
+ 
+-@interface XBMCDelegate : NSObject
++@interface XBMCDelegate : NSObject<NSApplicationDelegate>
+ @end
+ #endif
+diff --git a/xbmc/main/osx/SDLMain.mm b/xbmc/main/osx/SDLMain.mm
+index 8f47794..1cacca2 100644
+--- a/xbmc/main/osx/SDLMain.mm
++++ b/xbmc/main/osx/SDLMain.mm
+@@ -589,7 +589,7 @@ int main(int argc, char *argv[])
+ 
+   // Create XBMCDelegate and make it the app delegate
+   xbmc_delegate = [[XBMCDelegate alloc] init];
+-  [NSApp setDelegate:xbmc_delegate];
++  [[NSApplication sharedApplication] setDelegate:xbmc_delegate];
+ 
+   // Start the main event loop
+   [NSApp run];
+-- 
+1.7.9.5
+

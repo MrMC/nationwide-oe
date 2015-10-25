@@ -1,0 +1,156 @@
+From 351f516c7a86566f9e4f049cc9cc1f36ba5069fd Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Sun, 2 Aug 2015 08:27:36 -0400
+Subject: [PATCH 2/2] [nwmn] fixed, local playback if no network
+
+---
+ xbmc/nwmn/PlayerManagerMN.cpp |  8 +++--
+ xbmc/nwmn/UtilitiesMN.cpp     | 74 +++++++++++++++++++++++++++----------------
+ 2 files changed, 52 insertions(+), 30 deletions(-)
+
+diff --git a/xbmc/nwmn/PlayerManagerMN.cpp b/xbmc/nwmn/PlayerManagerMN.cpp
+index 4ce4468..8e40aec 100644
+--- a/xbmc/nwmn/PlayerManagerMN.cpp
++++ b/xbmc/nwmn/PlayerManagerMN.cpp
+@@ -227,7 +227,7 @@ void CPlayerManagerMN::Startup()
+ {
+   m_settings = GetSettings();
+   StartDialog();
+-  ParseMediaXML(m_settings,m_categories,m_OnDemand);
++  ParseMediaXML(m_settings, m_categories, m_OnDemand);
+   ParseSettingsXML(m_settings);
+   LogSettings(m_strHome,m_settings);
+   UploadLogs(m_settings);
+@@ -314,8 +314,6 @@ void CPlayerManagerMN::Process()
+   CLog::Log(LOGDEBUG, "**MN** - CPlayerManagerMN::Process Started");
+   while (!m_bStop)
+   {
+-    Sleep(500);
+-    
+     if (m_CheckAssets)
+     {
+       m_CheckAssets = false;
+@@ -382,6 +380,8 @@ void CPlayerManagerMN::Process()
+         CloseDialog();
+       }
+     }
++
++    Sleep(500);
+   }
+ 
+   CLog::Log(LOGDEBUG, "**MN** - CPlayerManagerMN::Process Stopped");
+@@ -389,6 +389,8 @@ void CPlayerManagerMN::Process()
+ 
+ bool CPlayerManagerMN::CheckAndDownloadAssets()
+ {
++  m_HasNetwork = PingMNServer(m_settings.strUrl_feed);
++
+   int itemCount = 0;
+   for (size_t cat = 0; cat < m_categories.size(); cat++)
+     itemCount += m_categories[cat].items.size();
+diff --git a/xbmc/nwmn/UtilitiesMN.cpp b/xbmc/nwmn/UtilitiesMN.cpp
+index b209501..742240c 100644
+--- a/xbmc/nwmn/UtilitiesMN.cpp
++++ b/xbmc/nwmn/UtilitiesMN.cpp
+@@ -348,7 +348,7 @@ bool SetDownloadedAsset(const std::string AssetID, bool downloaded)
+   return false;
+ }
+ 
+-void ParseMediaXML(PlayerSettings settings,std::vector<MNCategory> &categories, MNCategory &OnDemand)
++void ParseMediaXML(PlayerSettings settings, std::vector<MNCategory> &categories, MNCategory &OnDemand)
+ {
+   
+   std::string url = StringUtils::Format("%s/xml/tv/media.php?machine=%s-%s",
+@@ -358,21 +358,31 @@ void ParseMediaXML(PlayerSettings settings,std::vector<MNCategory> &categories,
+                                         );
+   categories.clear();
+   
+-  XFILE::CCurlFile http;
+-  std::string strXML;
+-  http.Get(url, strXML);
+-  
+   TiXmlDocument xml;
+-  xml.Parse(strXML.c_str());
+-  
+-  TiXmlElement* rootXmlNode = xml.RootElement();
+-  
+-  // save media xml
+-  std::string localMediaXML = "special://MN/media_xml.xml";
+   CXBMCTinyXML xmlDoc;
+-  xmlDoc.InsertEndChild(*rootXmlNode);
+-  xmlDoc.SaveFile(localMediaXML);
+-  // end save
++  TiXmlElement *rootXmlNode;
++  std::string localMediaXML = "special://MN/media_xml.xml";
++  if (!PingMNServer(settings.strUrl_feed))
++  {
++    if (XFILE::CFile::Exists(localMediaXML))
++    {
++      xmlDoc.LoadFile(localMediaXML);
++      rootXmlNode = xmlDoc.RootElement();
++    }
++  }
++  else
++  {
++
++    XFILE::CCurlFile http;
++    std::string strXML;
++    http.Get(url, strXML);
++
++    xml.Parse(strXML.c_str());
++    rootXmlNode = xml.RootElement();
++
++    xmlDoc.InsertEndChild(*rootXmlNode);
++    xmlDoc.SaveFile(localMediaXML);
++  }
+   
+   if (rootXmlNode)
+   {
+@@ -447,21 +457,31 @@ void ParseSettingsXML(PlayerSettings &settings)
+                                         settings.strMachine_id.c_str()
+                                         );
+   
+-  XFILE::CCurlFile http;
+-  std::string strXML;
+-  http.Get(url, strXML);
+-  
+   TiXmlDocument xml;
+-  xml.Parse(strXML.c_str());
+-  
+-  TiXmlElement* rootXmlNode = xml.RootElement();
+-  
+-  // save settings xml
+-  std::string localSettingsXML = "special://MN/settings_xml.xml";
+   CXBMCTinyXML xmlDoc;
+-  xmlDoc.InsertEndChild(*rootXmlNode);
+-  xmlDoc.SaveFile(localSettingsXML);
+-  // end save
++  TiXmlElement *rootXmlNode;
++  std::string localSettingsXML = "special://MN/settings_xml.xml";
++  if (!PingMNServer(settings.strUrl_feed))
++  {
++    if (XFILE::CFile::Exists(localSettingsXML))
++    {
++      xmlDoc.LoadFile(localSettingsXML);
++      rootXmlNode = xmlDoc.RootElement();
++    }
++  }
++  else
++  {
++    XFILE::CCurlFile http;
++    std::string strXML;
++    http.Get(url, strXML);
++
++    xml.Parse(strXML.c_str());
++    rootXmlNode = xml.RootElement();
++
++    // save settings xml
++    xmlDoc.InsertEndChild(*rootXmlNode);
++    xmlDoc.SaveFile(localSettingsXML);
++  }
+   
+   if (rootXmlNode)
+   {
+-- 
+1.9.5 (Apple Git-50.3)
+

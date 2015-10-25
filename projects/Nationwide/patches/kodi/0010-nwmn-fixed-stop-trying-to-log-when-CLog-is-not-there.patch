@@ -1,0 +1,40 @@
+From bc72730205f7f2e4ac0092b4a5dad3d8bc656438 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:38:35 -0400
+Subject: [PATCH 10/24] [nwmn] fixed, stop trying to log when CLog is not
+ there
+
+---
+ xbmc/SectionLoader.cpp            |    2 +-
+ xbmc/cores/DllLoader/SoLoader.cpp |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xbmc/SectionLoader.cpp b/xbmc/SectionLoader.cpp
+index df92684..a8f7d15 100644
+--- a/xbmc/SectionLoader.cpp
++++ b/xbmc/SectionLoader.cpp
+@@ -134,7 +134,7 @@ void CSectionLoader::UnloadAll()
+   while (it != g_sectionLoader.m_vecLoadedDLLs.end())
+   {
+     CDll& dll = *it;
+-    CLog::Log(LOGDEBUG,"SECTION:UnloadAll(DLL: %s)", dll.m_strDllName.c_str());
++    //CLog::Log(LOGDEBUG,"SECTION:UnloadAll(DLL: %s)", dll.m_strDllName.c_str());
+     if (dll.m_pDll)
+       DllLoaderContainer::ReleaseModule(dll.m_pDll);
+     it = g_sectionLoader.m_vecLoadedDLLs.erase(it);
+diff --git a/xbmc/cores/DllLoader/SoLoader.cpp b/xbmc/cores/DllLoader/SoLoader.cpp
+index 717ce66..0efc34d 100644
+--- a/xbmc/cores/DllLoader/SoLoader.cpp
++++ b/xbmc/cores/DllLoader/SoLoader.cpp
+@@ -72,7 +72,7 @@ bool SoLoader::Load()
+ 
+ void SoLoader::Unload()
+ {
+-  CLog::Log(LOGDEBUG, "Unloading: %s\n", GetName());
++  //CLog::Log(LOGDEBUG, "Unloading: %s\n", GetName());
+ 
+   if (m_soHandle)
+   {
+-- 
+1.7.9.5
+

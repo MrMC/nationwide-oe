@@ -1,0 +1,26 @@
+From e44da58fc7a71af4ebfa352a69b8f74a85341e08 Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Thu, 23 Jul 2015 23:49:18 +0400
+Subject: [PATCH 19/24] [nwmn] allow webui to use special://home/MN to acess
+ settings file
+
+---
+ xbmc/network/httprequesthandler/HTTPVfsHandler.cpp |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/network/httprequesthandler/HTTPVfsHandler.cpp b/xbmc/network/httprequesthandler/HTTPVfsHandler.cpp
+index 30c1163..ca175bf 100644
+--- a/xbmc/network/httprequesthandler/HTTPVfsHandler.cpp
++++ b/xbmc/network/httprequesthandler/HTTPVfsHandler.cpp
+@@ -39,7 +39,7 @@ CHTTPVfsHandler::CHTTPVfsHandler(const HTTPRequest &request)
+     if (XFILE::CFile::Exists(file))
+     {
+       bool accessible = false;
+-      if (file.substr(0, 8) == "image://")
++      if (file.substr(0, 8) == "image://" || file.substr(0, 17) == "special://home/MN" )
+         accessible = true;
+       else
+       {
+-- 
+1.7.9.5
+

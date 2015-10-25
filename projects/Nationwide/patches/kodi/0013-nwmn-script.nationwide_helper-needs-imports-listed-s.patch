@@ -1,0 +1,25 @@
+From cc5eebb27115909dae03ae7625c66aae3fa98cc9 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:42:35 -0400
+Subject: [PATCH 13/24] [nwmn] script.nationwide_helper needs imports listed
+ (script.module.simplejson)
+
+---
+ addons/script.nationwide_helper/addon.xml |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/addons/script.nationwide_helper/addon.xml b/addons/script.nationwide_helper/addon.xml
+index 6ca2bfd..585d3dd 100644
+--- a/addons/script.nationwide_helper/addon.xml
++++ b/addons/script.nationwide_helper/addon.xml
+@@ -5,6 +5,7 @@
+        provider-name="dream-team">
+   <requires>
+     <import addon="xbmc.python" version="2.1.0"/>
++    <import addon="script.module.simplejson" version="3.3.0"/>
+   </requires>
+   <extension point="xbmc.python.script"
+              library="default.py" />
+-- 
+1.7.9.5
+

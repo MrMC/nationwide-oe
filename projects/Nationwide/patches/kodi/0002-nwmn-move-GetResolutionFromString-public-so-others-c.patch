@@ -1,0 +1,34 @@
+From ac21c4d4e7bf137a49be2f0c5d5cabb5985fbfdc Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Wed, 22 Jul 2015 20:34:18 -0400
+Subject: [PATCH 02/24] [nwmn] move GetResolutionFromString public so others
+ can use it
+
+---
+ xbmc/settings/DisplaySettings.h |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/xbmc/settings/DisplaySettings.h b/xbmc/settings/DisplaySettings.h
+index 931eb28..20e0e79 100644
+--- a/xbmc/settings/DisplaySettings.h
++++ b/xbmc/settings/DisplaySettings.h
+@@ -98,6 +98,8 @@ public:
+   static void SettingOptionsPreferredStereoscopicViewModesFiller(const CSetting *setting, std::vector< std::pair<std::string, int> > &list, int &current, void *data);
+   static void SettingOptionsMonitorsFiller(const CSetting *setting, std::vector< std::pair<std::string, std::string> > &list, std::string &current, void *data);
+ 
++  static RESOLUTION GetResolutionFromString(const std::string &strResolution);
++
+ protected:
+   CDisplaySettings();
+   CDisplaySettings(const CDisplaySettings&);
+@@ -106,7 +108,6 @@ protected:
+ 
+   DisplayMode GetCurrentDisplayMode() const;
+ 
+-  static RESOLUTION GetResolutionFromString(const std::string &strResolution);
+   static std::string GetStringFromResolution(RESOLUTION resolution, float refreshrate = 0.0f);
+   static RESOLUTION GetResolutionForScreen();
+ 
+-- 
+1.7.9.5
+

@@ -1,0 +1,48 @@
+From 01140b696894d83535ec0580a4bf2d8094c90dc3 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Wed, 22 Jul 2015 20:33:13 -0400
+Subject: [PATCH 01/24] [nwmn] fix CCurlFile::Exists to support 403 replies
+
+---
+ xbmc/filesystem/CurlFile.cpp |   11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/xbmc/filesystem/CurlFile.cpp b/xbmc/filesystem/CurlFile.cpp
+index e987633..3b4744f 100644
+--- a/xbmc/filesystem/CurlFile.cpp
++++ b/xbmc/filesystem/CurlFile.cpp
+@@ -1172,7 +1172,6 @@ bool CCurlFile::Exists(const CURL& url)
+   }
+ 
+   CURLcode result = g_curlInterface.easy_perform(m_state->m_easyHandle);
+-  g_curlInterface.easy_release(&m_state->m_easyHandle, NULL);
+ 
+   if (result == CURLE_WRITE_ERROR || result == CURLE_OK)
+     return true;
+@@ -1180,14 +1179,22 @@ bool CCurlFile::Exists(const CURL& url)
+   if (result == CURLE_HTTP_RETURNED_ERROR)
+   {
+     long code;
+-    if(g_curlInterface.easy_getinfo(m_state->m_easyHandle, CURLINFO_RESPONSE_CODE, &code) == CURLE_OK && code != 404 )
++    if(g_curlInterface.easy_getinfo(m_state->m_easyHandle, CURLINFO_RESPONSE_CODE, &code) == CURLE_OK && (code != 404 || code != 403) )
+       CLog::Log(LOGERROR, "CCurlFile::Exists - Failed: HTTP returned error %ld for %s", code, url.GetRedacted().c_str());
++
++    if (code == 403)
++    {
++      g_curlInterface.easy_release(&m_state->m_easyHandle, NULL);
++      errno = EACCES;
++      return false;
++    }
+   }
+   else if (result != CURLE_REMOTE_FILE_NOT_FOUND && result != CURLE_FTP_COULDNT_RETR_FILE)
+   {
+     CLog::Log(LOGERROR, "CCurlFile::Exists - Failed: %s(%d) for %s", g_curlInterface.easy_strerror(result), result, url.GetRedacted().c_str());
+   }
+ 
++  g_curlInterface.easy_release(&m_state->m_easyHandle, NULL);
+   errno = ENOENT;
+   return false;
+ }
+-- 
+1.7.9.5
+

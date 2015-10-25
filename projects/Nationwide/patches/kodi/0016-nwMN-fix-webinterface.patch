@@ -1,0 +1,25 @@
+From 09b291675d5eab0efcfdd80e7c0822bc94f7acae Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Thu, 23 Jul 2015 22:56:05 +0400
+Subject: [PATCH 16/24] [nwMN] fix webinterface
+
+---
+ addons/webinterface.nationwide_membernet/addon.xml |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/addons/webinterface.nationwide_membernet/addon.xml b/addons/webinterface.nationwide_membernet/addon.xml
+index ef1fb27..1c5a937 100644
+--- a/addons/webinterface.nationwide_membernet/addon.xml
++++ b/addons/webinterface.nationwide_membernet/addon.xml
+@@ -9,7 +9,7 @@
+     <import addon="xbmc.json" version="6.0.0"/>
+   </requires>
+   <extension
+-    point="xbmc.gui.webinterface"/>
++    point="xbmc.webinterface"/>
+   <extension point="xbmc.addon.metadata">
+     <summary lang="en"></summary>
+     <description lang="en"></description>
+-- 
+1.7.9.5
+

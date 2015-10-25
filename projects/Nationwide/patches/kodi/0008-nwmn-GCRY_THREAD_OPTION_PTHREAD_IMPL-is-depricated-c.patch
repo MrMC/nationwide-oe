@@ -1,0 +1,43 @@
+From e25376d1dfccf9eaf0d4e68602bd5850ccb9a182 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:28:52 -0400
+Subject: [PATCH 08/24] [nwmn] GCRY_THREAD_OPTION_PTHREAD_IMPL is depricated,
+ check for it
+
+---
+ xbmc/utils/CryptThreading.cpp |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/xbmc/utils/CryptThreading.cpp b/xbmc/utils/CryptThreading.cpp
+index 49a24e5..1d2deca 100644
+--- a/xbmc/utils/CryptThreading.cpp
++++ b/xbmc/utils/CryptThreading.cpp
+@@ -40,9 +40,12 @@
+ #include <gcrypt.h>
+ #include <errno.h>
+ 
++#if GCRYPT_VERSION_NUMBER < 0x010600
+ GCRY_THREAD_OPTION_PTHREAD_IMPL;
+ #endif
+ 
++#endif
++
+ /* ========================================================================= */
+ /* openssl locking implementation for curl */
+ static CCriticalSection* getlock(int index)
+@@ -82,10 +85,12 @@ CryptThreadingInitializer::CryptThreadingInitializer()
+     locks[i] = NULL;
+ 
+ #ifdef HAVE_GCRYPT
++#if GCRYPT_VERSION_NUMBER < 0x010600
+   // set up gcrypt
+   gcry_control(GCRYCTL_SET_THREAD_CBS, &gcry_threads_pthread);
+   attemptedToSetSSLMTHook = true;
+ #endif
++#endif
+ 
+   if (!attemptedToSetSSLMTHook)
+     CLog::Log(LOGWARNING, "Could not determine the libcurl security library to set the locking scheme. This may cause problem with multithreaded use of ssl or libraries that depend on it (libcurl).");
+-- 
+1.7.9.5
+

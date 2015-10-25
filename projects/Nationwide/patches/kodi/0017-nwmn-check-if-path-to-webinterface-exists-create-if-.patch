@@ -1,0 +1,26 @@
+From ee57506992ade4516be97d2a72ce6a0be9ea6068 Mon Sep 17 00:00:00 2001
+From: amet <amet.nospam@gmail.com>
+Date: Thu, 23 Jul 2015 22:56:44 +0400
+Subject: [PATCH 17/24] [nwmn] check if path to webinterface exists, create if
+ not
+
+---
+ addons/script.nationwide_helper/default.py |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/addons/script.nationwide_helper/default.py b/addons/script.nationwide_helper/default.py
+index 2c546dc..260884f 100644
+--- a/addons/script.nationwide_helper/default.py
++++ b/addons/script.nationwide_helper/default.py
+@@ -75,6 +75,8 @@ else:
+ 	json = str(sys.argv[2]).replace(";",",").replace("values=","") ##cleanup the string after XBMC sends it
+ 
+ 	web_folder = xbmc.translatePath("special://home/addons/webinterface.nationwide_membernet")
++	if not os.path.exists(web_folder):
++	  os.makedirs(web_folder)
+ 
+ 	file(os.path.join(web_folder , "settings.txt"),'w').write(json)
+ 
+-- 
+1.7.9.5
+

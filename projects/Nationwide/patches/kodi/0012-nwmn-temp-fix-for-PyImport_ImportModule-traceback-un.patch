@@ -1,0 +1,52 @@
+From eba9bf6f02e0d81f5639672d679760928cb39266 Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:41:47 -0400
+Subject: [PATCH 12/24] [nwmn] temp fix for
+ PyImport_ImportModule("traceback"), until I fixure
+ out the warning fixes
+
+---
+ xbmc/interfaces/python/swig.cpp |   27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
+
+diff --git a/xbmc/interfaces/python/swig.cpp b/xbmc/interfaces/python/swig.cpp
+index c9c14c3..a767632 100644
+--- a/xbmc/interfaces/python/swig.cpp
++++ b/xbmc/interfaces/python/swig.cpp
+@@ -196,17 +196,22 @@ namespace PythonBindings
+       PyObject *tracebackModule = PyImport_ImportModule("traceback");
+       if (tracebackModule != NULL)
+       {
+-        PyObject *tbList = PyObject_CallMethod(tracebackModule, "format_exception", "OOO", exc_type, exc_value == NULL ? Py_None : exc_value, exc_traceback == NULL ? Py_None : exc_traceback);
+-        PyObject *emptyString = PyString_FromString("");
+-        PyObject *strRetval = PyObject_CallMethod(emptyString, "join", "O", tbList);
+-
+-        str = PyString_AsString(strRetval);
+-        if (str != NULL)
+-          exceptionTraceback = str;
+-
+-        Py_DECREF(tbList);
+-        Py_DECREF(emptyString);
+-        Py_DECREF(strRetval);
++        PyObject *tbList = PyObject_CallMethod(tracebackModule, "format_exception", "000", exc_type, exc_value == NULL ? Py_None : exc_value, exc_traceback == NULL ? Py_None : exc_traceback);
++        if (tbList)
++        {
++          PyObject *emptyString = PyString_FromString("");
++          PyObject *strRetval = PyObject_CallMethod(emptyString, "join", "O", tbList);
++          Py_DECREF(emptyString);
++
++          if (strRetval)
++          {
++            str = PyString_AsString(strRetval);
++            if (str != NULL)
++              exceptionTraceback = str;
++            Py_DECREF(strRetval);
++          }
++          Py_DECREF(tbList);
++        }
+         Py_DECREF(tracebackModule);
+       }
+     }
+-- 
+1.7.9.5
+

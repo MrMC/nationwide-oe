@@ -1,0 +1,35 @@
+From d09f254abd4b5325bdd4e128039423f0a95c042f Mon Sep 17 00:00:00 2001
+From: "S. Davilla" <davilla@4pi.com>
+Date: Thu, 23 Jul 2015 12:51:17 -0400
+Subject: [PATCH 14/24] [nwmn] fixed, compiler warnings, related to
+ eba9bf6f02e0d81f5639672d679760928cb39266
+
+---
+ xbmc/interfaces/python/swig.cpp |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/xbmc/interfaces/python/swig.cpp b/xbmc/interfaces/python/swig.cpp
+index a767632..c5c1348 100644
+--- a/xbmc/interfaces/python/swig.cpp
++++ b/xbmc/interfaces/python/swig.cpp
+@@ -196,11 +196,15 @@ namespace PythonBindings
+       PyObject *tracebackModule = PyImport_ImportModule("traceback");
+       if (tracebackModule != NULL)
+       {
+-        PyObject *tbList = PyObject_CallMethod(tracebackModule, "format_exception", "000", exc_type, exc_value == NULL ? Py_None : exc_value, exc_traceback == NULL ? Py_None : exc_traceback);
++        char format_exception[] = "format_exception";
++        char zeros[] = "000";
++        PyObject *tbList = PyObject_CallMethod(tracebackModule, format_exception, zeros, exc_type, exc_value == NULL ? Py_None : exc_value, exc_traceback == NULL ? Py_None : exc_traceback);
+         if (tbList)
+         {
++          char join[] = "join";
++          char zero[] = "O";
+           PyObject *emptyString = PyString_FromString("");
+-          PyObject *strRetval = PyObject_CallMethod(emptyString, "join", "O", tbList);
++          PyObject *strRetval = PyObject_CallMethod(emptyString, join, zero, tbList);
+           Py_DECREF(emptyString);
+ 
+           if (strRetval)
+-- 
+1.7.9.5
+
