@@ -54,6 +54,9 @@ if [ -d "$WEBINTERFACE_DST" ]; then
   /usr/bin/python /usr/share/nationwide/update_webui.py $WEBINTERFACE_DST/settings.txt
 fi
 
+# nuke any existing repositorys
+rm -rf /storage/.xbmc/addons/repository.*
+
 # make sure time is right
 (
   /bin/sleep 30; \

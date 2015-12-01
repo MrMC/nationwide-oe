@@ -461,6 +461,7 @@ post_makeinstall_target() {
   rm -rf $INSTALL/usr/share/xsessions
 
   mkdir -p $INSTALL/usr/share/xbmc/addons
+    rm -rf $INSTALL/usr/share/xbmc/addons/repository.*
 #    cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/xbmc/addons
 #    $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.tv/addon.xml
 #    cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/xbmc/addons
