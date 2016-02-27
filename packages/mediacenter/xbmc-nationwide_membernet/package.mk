@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="xbmc-nationwide_membernet"
-PKG_VERSION="4.2.4"
+PKG_VERSION="4.2.5"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="prop."
